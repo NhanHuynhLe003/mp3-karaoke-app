@@ -507,61 +507,38 @@ function hideSearchResult() {
   searchResult.style.visibility = "hidden";
 }
 
-
-
-function createResultSearch(thumbnail){
-  let searchResultContent = document.createElement('li');
-  let imgSearchResult = document.createElement('img');
-  imgSearchResult.src = `././music avatar/${thumbnail}.jpg`;
-  searchResultContent.appendChild(imgSearchResult);
-  searchResult.children[0].appendChild(searchResultContent);
-}
-
-function removeResultSearch(songSearchedList){
-  
-}
-function renderSearchResult(){
-
-}
-let preSongSearchedList = [];
-function handleSearchResult() {
-  let songSearchedList = songList.filter((song) => {
-    let nameSongVal='';
-    for (let i = 0; i < myInput.length; i++) {
-          nameSongVal += song.nameSong[i];
-    }
-    if(myInput != ''){
-      // để có thể tránh việc render tất cả khi myInput = '';
-      return nameSongVal == myInput;
-    }
-  });
-  songSearchedList.forEach((songSearched,index) => {
-    //neu bai hat bi xoa, set lai isDuplicate = false;
-
-    if(preSongSearchedList[0] != songSearchedList[0]){
-      createResultSearch(songSearched.avatar);
-      
-    } else {
-      console.log('trung')
-    }
-    preSongSearchedList = songSearchedList;
+function convertSongToNameMusic() {
+  let nameMusic = [];
+  songList.forEach((song) => {
+    nameMusic.push(song.nameSong)
   })
   
-  
+  return nameMusic;
 }
+
+let nameMusic = convertSongToNameMusic();
 
 function handleSearchBar() {
   searchInput.onfocus = function () {
     showSearchResult();
-    console.log(searchResult);
   };
   searchInput.onblur = function () {
     hideSearchResult();
   };
-  searchInput.oninput = function () {
-    myInput = this.value;
-    // console.log(contentResult)
-    handleSearchResult();
+  searchInput.onkeyup = function(e) {
+    for(let i of nameMusic){
+      if((i.toLowerCase().startsWith(searchInput.value.toLowerCase())) && searchInput.value != ''){
+        let listItem = document.createElement('li');
+        listItem.classList.add('list-items');
+        listItem.style.cursor = 'pointer';
+        listItem.setAttribute('onclick', `displayNames(${i})`);
+
+        let word = `<b>${i.substr(0,searchInput.value.length)}</b>`;
+        word += i.substr(searchInput.value.length);
+        listItem.innerHTML = word;
+        searchResult.children[0].appendChild(listItem);
+      }
+    }
   };
 }
 handleSearchBar();
