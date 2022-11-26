@@ -1,0 +1,409 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    color:#fff;
+    font-weight: 500;
+}
+:root{
+    --text-f-80: #ffffff80;
+    --border-secondary: hsla(0,0%,100%,0.05);
+    --alpha-bg:hsla(0,0%,100%,0.1);
+    --link-text-hover: #c273ed;
+    --primary-bg: #333;
+}
+#logo>img{
+    width: 50%;
+    margin: 0.75rem 0 1rem 1.75rem;
+}
+.disabled{
+    opacity: 0.4;
+}
+.btn-on{
+    color: var(--link-text-hover) !important;
+}
+.circle{
+    border-radius: 50% !important;
+}
+div#sort-option {
+    background: var(--primary-bg);
+    position: relative;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 20%);
+    top: 10px;
+    left: -4px;
+    z-index: 1;
+    display: none;
+}
+
+.opt-list {
+    font-size: 12px;
+    border-radius: 4px;
+    line-height: 1;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 400;
+}
+div#sort-option>i{
+    transform: rotate(180deg);
+    color: var(--primary-bg);
+    position: absolute;
+    top: -14px;
+    left: 6px;
+    font-size: 25px;
+    
+}
+
+
+section#content {
+    display: flex;
+    margin-bottom: 6rem;
+}
+#search-bar .search-btn{
+    padding-right: 10px;
+    padding-top: 7px;
+    height: 2rem;
+}
+
+#search-bar{
+    background-color: #333333;
+    border-radius: 20px;
+    padding: 3px 19rem 3px 1rem;
+    text-align: left;
+    margin-left: 8rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.search-input>input{
+    border: none;
+    height: 2rem;
+    background-color: #333333;
+    padding: 8px 70%;
+}
+aside#left{
+    width: 15%;
+    background-color: #333333;
+    
+}
+#nav-bar-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #000;
+    position: fixed;
+    width: 85%;
+    z-index: 1000;
+}
+.wrapper-input{
+    display: flex;
+    height: 2.2rem;
+}
+div#search-result {
+    /* padding-top: 2.5rem; */
+    background-color: #333333;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.5rem;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    visibility: hidden;
+}
+
+div#search-result > .search-result__container > li{
+    list-style-type: none;
+}
+div#search-result > .search-result__container > li > img{
+    width: 60px;
+}
+#music-list-right{
+    width: 70%;
+    padding-right: 4rem;
+}
+aside#right {
+    width: 85%;
+}
+.circle-icon{
+    border-radius: 50%;
+}
+button#change-title {
+    padding: 0.5rem 0.6rem;
+}
+button#user-avatar {
+    padding: 0.7rem 0.85rem;
+    margin-left: 10px;
+}
+span#user-setting {
+    display: flex;
+    height: 62%;
+    margin: 14px 0;
+    padding-right: 55px;
+}
+#music-info-left{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 3rem;
+}
+div#music-container-list {
+    background: #000;
+    display: flex;
+    flex-direction: row;
+    margin-top: 4rem;
+}
+.name-of-music-left{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 1000;
+    margin-top: 0.8rem;
+}
+div#m-information {
+    text-align: center;
+}
+#music-picture .music-img{
+    width: 100%;
+    border-radius: 10px;
+}
+.song-title i.fa-solid.fa-arrow-right-arrow-left {
+    transform: rotate(90deg);
+}
+.name-of-music-left{
+
+}
+#name-of-singer{
+    color: var(--text-f-80);
+    font-size: 12px;
+}
+span#publication-date {
+    color: var(--text-f-80);
+    font-size: 12px;
+}
+button#continue-run-music {
+    color: #fff;
+    background: #9B4DE0;
+    width: 55%;
+    line-height: 35px;
+    border-radius: 30px;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 auto;
+    margin-top: 2rem
+}
+div#about-singer {
+    margin-top: 0.5rem;
+}
+.download-music{
+    text-align: center;
+    background-color: #ffffff1A;
+    border-radius: 50%;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 10px auto;
+    color: #fff;
+
+}
+.nameMusician {
+    font-size: 12px;
+    color: var(--text-f-80);
+}
+#music-header-row{
+    color: var(--text-f-80);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-top: 4rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-secondary);
+    
+}
+#music-header-row>.timer-title{
+    color:var(--text-f-80);
+}
+#music-header-row>.song-title>i{
+    color: var(--text-f-80);
+}
+#music-header-row>.song-title>span{
+    padding: 0 0.5rem;
+    color: var(--text-f-80);
+}
+#list-songs-container{
+    position: relative;
+    /* top: -100px; */
+}
+#list-songs-container .song-container{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border-secondary);
+}
+.music-bar-btn{
+    background: #333333;
+}
+#list-songs-container .song-container .item-2{
+    height: 2.5rem;
+}
+#list-songs-container .song-container .item-1{
+    color: var(--text-f-80);
+    width: 1.5rem;
+}
+#list-songs-container .song-container .item-3{
+    display: none;
+}
+#list-songs-container .song-container .item-4{
+    color: var(--text-f-80);
+    margin-left: 2rem;
+    font-size: 12px;
+    
+}
+.song-container .item-2>img{
+    height: 100%;
+    border-radius: 3px;
+}
+#list-songs-container .song-container .wrapper-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#list-songs-container .song-container .wrapper-2{
+    padding-left: 0.75rem;
+}
+#list-songs-container .song-container .wrapper-2 h2{
+    font-size: 14px;
+    font-weight: 500;
+}
+#list-songs-container .song-container .wrapper-2 .name-author{
+    font-size: 12px;
+    color: var(--text-f-80);
+
+}
+#list-songs-container .song-container .wrapper-3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#playing-music-bar{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+div#playing-music-bar__left {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    align-items: center;
+}
+div#playing-music-bar__center {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 1.75rem 0;
+}
+.playing{
+    background: var(--alpha-bg);;
+}
+div#playing-music-right {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    justify-content: flex-end;
+    align-items: center;
+}
+.playing-music-bar__center__down {
+    margin-top: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* width: 100%; */
+    display: flex;
+}
+button.run-music {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: 1px solid;
+    position: absolute;
+    left: 45%;
+    top: 45%;
+}
+button.run-music>img{
+    width: 1.2rem;
+}
+div#music-picture {
+    position: relative;
+}
+.information-of-music {
+    padding: 0 1rem;
+    width: 60%;
+}
+.thumbnail>img{
+    width: 4rem;
+}
+#playing-music-right button#playlist {
+    height: 2rem;
+}
+#playing-music-right #volume{
+    height: 2rem;
+}
+.playing-music-bar__center__down>input[type="range"]{
+    width: 100%;
+}
+
+.spin{
+    animation: circleSpin 12s infinite linear;
+}
+.returnThumbNail{
+    animation: circleSpinRevert 300ms ease-out;
+    
+}
+.circleToNormal{
+    animation: circleToNormal 200ms linear;
+}
+.circleToNormalRevert{
+    animation: circleToNormalRevert 200ms linear;
+}
+@keyframes circleSpin{
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circleSpinRevert{
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes circleToNormal{
+    from{
+        border-radius: 50%;
+    } to{
+        border-radius: 10px;
+    }
+}
+@keyframes circleToNormalRevert{
+    from{
+        border-radius: 10px;
+    } to{
+        border-radius: 50%;
+    }
+}
