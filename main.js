@@ -101,11 +101,7 @@ let nextBtn = document.getElementById("next-btn");
 let prevBtn = document.getElementById("prev-btn");
 let rangeBar = document.getElementById("range-music");
 let progress = document.getElementById("duration");
-let soThuTu = document.querySelectorAll(".wrapper-1 .item-1");
-let thumbnail = document.querySelectorAll(".item-2 img");
-let nameSong = document.querySelectorAll(".wrapper-2 h2");
-let nameAuthor = document.querySelectorAll(".name-author");
-let timeEnd = document.querySelectorAll(".wrapper-3 .item-4");
+
 let timeDuration = document.querySelector("#time-end");
 let bigThumbnail = document.querySelector("#music-picture>img");
 let nameMusicInBigThumbnail = document.querySelector(".name-of-music-left");
@@ -120,9 +116,7 @@ let nameSingerBar = document.querySelector(
 const randomBtn = document.querySelector("button#random-btn");
 const iconPlayingBtn = document.querySelector("button.run-music");
 let songContainerParent = document.querySelector("#list-songs-container");
-let songContainer = document.querySelectorAll(
-  "#list-songs-container .song-container"
-);
+
 const sortOpt = document.querySelector("div#sort-option");
 const sortSongBtn = document.getElementById("sortSong");
 const optList = document.getElementsByClassName("opt-list");
@@ -130,8 +124,6 @@ const searchInput = document.getElementById("search-input");
 const searchBar = document.getElementById("search-bar");
 const searchBtn = document.getElementById("searchBtn");
 const searchResult = document.getElementById("search-result");
-
-
 
 let curPosition = 0; //vi tri bai hat hien tai
 let randomBtnStatus = 0; //nut random dg off
@@ -141,14 +133,37 @@ let mouseBlurSortSelection = false;
 let myInput = "";
 let contentResult = 0;
 
-handleSortBtn();
-handleSortSelection(songList);
+function renderListSong() {
+  let newListSong = "";
+  for (let i = 0; i < songList.length; i++) {
+    newListSong += createListSong();
+  }
+  songContainerParent.innerHTML = newListSong;
+}
+
+function createListSong() {
+  return `<ul class="song-container">
+  <div class="wrapper-1">
+      <li class="item-1">1</li>
+      <li class="item-2"><img src="./img/img-avtar.jpeg" alt="anh01"></li>
+      <div class="wrapper-2">
+          <h2>Có Chơi Có Chịu</h2>
+          <li class="name-author">Karik</li>
+      </div>
+  </div>
+  <div class="wrapper-3">
+      <li class="item-3"><a class="download-music" href="#" download>
+              <i class="fa-solid fa-download"></i>
+          </a></li>
+      <li class="item-4">03:44</li>
+  </div>
+</ul>`;
+}
+
 function handleSortSelection(songList) {
   for (let i = 0; i < optList.length; i++) {
     optList[i].onclick = function () {
       songList = handleSortBy(i);
-      console.log(i);
-      console.log(songList);
       autoRenderPage();
       runMusicWhenChanged(0);
     };
@@ -181,8 +196,6 @@ function handleSortBtn() {
   };
 }
 
-swapMusicWhenClick();
-
 function handleStartBtn() {
   let tog = 0;
 
@@ -199,7 +212,6 @@ function handleStartBtn() {
     }
   };
 }
-handleStartBtn();
 
 function handleRangeBar() {
   audio.ontimeupdate = function () {
@@ -269,7 +281,7 @@ function handleTimeFormat(time) {
     } else {
       timeFormated = `${min}:${time % 60}`;
     }
-    render;
+    // render;
   }
   return timeFormated;
 }
@@ -284,6 +296,11 @@ function handleChangePstBar() {
 
 function autoRenderPage() {
   for (let i = 0; i < songList.length; i++) {
+    let soThuTu = document.querySelectorAll(".wrapper-1 .item-1");
+    let thumbnail = document.querySelectorAll(".item-2 img");
+    let nameSong = document.querySelectorAll(".wrapper-2 h2");
+    let nameAuthor = document.querySelectorAll(".name-author");
+    let timeEnd = document.querySelectorAll(".wrapper-3 .item-4");
     soThuTu[i].innerText = `${i + 1}`;
     thumbnail[i].src = `././music avatar/${songList[i].avatar}.jpg`;
     nameSong[i].innerText = `${songList[i].nameSong}`;
@@ -291,10 +308,9 @@ function autoRenderPage() {
     timeEnd[i].innerText = `${songList[i].time}`;
   }
 }
-autoRenderPage(); //render list nhac khi vua vao
 
 function render(viTri) {
-  songContainer[viTri].classList.add("playing");
+  songContainerParent.childNodes[viTri].classList.add("playing");
 }
 
 //hien thi bai hat dang phat
@@ -309,7 +325,7 @@ function selectMusic(pst) {
   timeDuration.innerText = `${songList[pst].time}`;
 }
 
-selectMusic(0); // hien thi bai dau tien khi vua render
+// hien thi bai dau tien khi vua render
 
 function playingMusic(pst) {
   audio.src = `./music/${songList[pst].source}.mp3`;
@@ -318,15 +334,14 @@ function playingMusic(pst) {
     handleSpinThumbnail(true);
   };
   audio.onpause = function () {
-    console.log("pausing");
     handleSpinThumbnail(false);
     iconPlayingBtn.style.display = "none";
   };
-  songContainer[pst].classList.add("playing"); //them class playing cho bai hat dang phat
+  songContainerParent.childNodes[pst].classList.add("playing"); //them class playing cho bai hat dang phat
   curPosition = pst; //vi tri hien tai khi phat cua bai hat
   for (let i = 0; i < songList.length; i++) {
     if (i != pst) {
-      songContainer[i].classList.remove("playing"); //xoa bai hat dang phat khi chon bai moi
+      songContainerParent.childNodes[i].classList.remove("playing"); //xoa bai hat dang phat khi chon bai moi
     }
   }
 }
@@ -347,9 +362,11 @@ function runMusicWhenChanged(pst) {
 }
 
 /**ham chua vi tri tung bang nhac */
+
 function swapMusicWhenClick() {
   for (let i = 0; i < songList.length; i++) {
-    songContainer[i].onclick = function () {
+    //han che goi html dc tao ra boi js nhu songContainer chua dc tao ra thay vao do hay dung songContainerParent.childNodes[i]
+    songContainerParent.childNodes[i].onclick = function () {
       runMusicWhenChanged(i);
       preNextWhenClick(i); //i la vi tri cur song
       if (curPosition == 0) {
@@ -366,10 +383,7 @@ function disablePrevBtn(status = true) {
   if (status == true) prevBtn.classList.add("disabled");
   else prevBtn.classList.remove("disabled");
 }
-disablePrevBtn();
 
-//handle click next or return btn
-preNextWhenClick();
 function preNextWhenClick(index = 0) {
   // let curPst = viTri;
   // let prePst = viTri--;
@@ -415,7 +429,7 @@ function randomSongBtn() {
     });
   };
 }
-randomSongBtn();
+
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -510,37 +524,82 @@ function hideSearchResult() {
 function convertSongToNameMusic() {
   let nameMusic = [];
   songList.forEach((song) => {
-    nameMusic.push(song.nameSong)
-  })
-  
+    nameMusic.push(song.nameSong);
+  });
+
   return nameMusic;
 }
 
-let nameMusic = convertSongToNameMusic();
-
 function handleSearchBar() {
+  let nameMusic = convertSongToNameMusic();
+
   searchInput.onfocus = function () {
     showSearchResult();
   };
-  searchInput.onblur = function () {
-    hideSearchResult();
-  };
-  searchInput.onkeyup = function(e) {
-    for(let i of nameMusic){
-      if((i.toLowerCase().startsWith(searchInput.value.toLowerCase())) && searchInput.value != ''){
-        let listItem = document.createElement('li');
-        listItem.classList.add('list-items');
-        listItem.style.cursor = 'pointer';
-        listItem.setAttribute('onclick', `displayNames(${i})`);
 
-        let word = `<b>${i.substr(0,searchInput.value.length)}</b>`;
+  searchInput.onkeyup = function (e) {
+    removeListItem();
+    for (let i of nameMusic) {
+      if (
+        i.toLowerCase().startsWith(searchInput.value.toLowerCase()) &&
+        searchInput.value != ""
+      ) {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-items");
+        listItem.style.cursor = "pointer";
+        listItem.addEventListener("click", () => {
+          displayNames(i);
+          //khi bam vao bai hat tren tim
+          hideSearchResult();
+        });
+
+        let word = `<span class="boldChar">${i.substr(
+          0,
+          searchInput.value.length
+        )}</span>`;
         word += i.substr(searchInput.value.length);
         listItem.innerHTML = word;
         searchResult.children[0].appendChild(listItem);
       }
     }
   };
+  function displayNames(value) {
+    console.log(value);
+    //tra ve kqua tim kiem
+    handleRenderSongWhenSearched(value);
+    removeListItem();
+  }
+  function removeListItem() {
+    let items = searchResult.children[0].querySelectorAll(".list-items");
+    items.forEach((item) => {
+      item.remove();
+    });
+  }
 }
-handleSearchBar();
+function handleRenderSongWhenSearched(value) {
+  songList = songList.filter((song) => {
+    return song.nameSong == value;
+  });
+  main();
+  console.log(songList);
+}
 
-playingMusic(0);
+function main() {
+  renderListSong();
+
+  handleSortBtn();
+  handleSortSelection(songList);
+  swapMusicWhenClick();
+  handleStartBtn();
+  autoRenderPage(); //render list nhac khi vua vao
+
+  selectMusic(0); //hien thi bai hat khi vua vao
+  disablePrevBtn();
+
+  //handle click next or return btn
+  preNextWhenClick();
+  randomSongBtn();
+  handleSearchBar();
+  playingMusic(0);
+}
+main();

@@ -66,11 +66,13 @@ section#content {
     padding-top: 7px;
     height: 2rem;
 }
-
+.boldChar{
+    font-weight: bold !important;
+}
 #search-bar{
     background-color: #333333;
     border-radius: 20px;
-    padding: 3px 19rem 3px 1rem;
+    padding: 3px 1rem;
     text-align: left;
     margin-left: 8rem;
     margin-top: 1rem;
@@ -82,7 +84,9 @@ section#content {
     border: none;
     height: 2rem;
     background-color: #333333;
-    padding: 8px 70%;
+    padding: 8px 18rem 8px 8px;
+    width: 100%;
+    border-radius: 20px;
 }
 aside#left{
     width: 15%;
@@ -102,6 +106,7 @@ aside#left{
     display: flex;
     height: 2.2rem;
 }
+
 div#search-result {
     /* padding-top: 2.5rem; */
     background-color: #333333;
