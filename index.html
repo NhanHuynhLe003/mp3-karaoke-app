@@ -20,11 +20,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
     <section id="content">
-        <aside id="left"><span id="logo"><img src="./img/logo-mp3.svg" alt="logo"></span></aside>
         <aside id="right">
             <div id="nav-bar-container">
                 <span id="nav-bar">
@@ -157,7 +158,43 @@
             </div>
         </aside>
     </section>
-    <div id="playing-music-bar" style="background-color: #000;">
+
+    <div id="lyric-modal">
+        <div class="container lyric-modal__container">
+            <div class="row lyric-modal__container__header-row1">
+                <div class="col-md-12 lyric-modal__container__header-row1__col1">
+                    <button>Lời bài hát</button>
+                    <span class="left-lyric-setting">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center scale-screen-btn"></i>
+                        <i class="fa-solid fa-chevron-down close-lyric-modal-btn"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="row lyric-modal__container__header-row2">
+                <div class="col-md-5 lyric-modal__container__header-row2__col1">
+                    <img src="./music avatar/avt-01.jpg" alt="" id="thumbnail-lyric">
+                </div>
+                <div class="col-md-7 lyric-modal__container__header-row2__col2">
+                    <ul id="songLyric-container">
+                        <li class="lyric-list-item">Chiều đang dần buông</li>
+                        <li class="lyric-list-item">hạt mưa rơi xuống không gian lắng yên</li>
+                        <li class="lyric-list-item">Suy tư vấn vương ngồi mộng mơ</li>
+                        <li class="lyric-list-item">Đơn phương nhớ đến một nàng thơ</li>
+                        <li class="lyric-list-item">Gió đông ùa về mang những ê chề (woh)</li>
+                        <li class="lyric-list-item">Ngỡ là trái tim khô cằn héo úa sẽ thôi buồn đau</li>
+                        <li class="lyric-list-item">Nhưng thật cay đắng khi biết là (ú oà)</li>
+                        <li class="lyric-list-item">Mình chỉ là một người đến sau (hey)</li>
+                        <li class="lyric-list-item">Biết em đã có người ở gần bên</li>
+                        <li class="lyric-list-item">Nhưng anh sẽ vẫn đứng ngay đây và chờ em</li>
+                        <li class="lyric-list-item">Mưa giông bão tố chẳng quan tâm đến ngày đêm</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="playing-music-bar" style="background-color: #000; z-index: 1500;">
+        <div id="nameLyricSong"><span class="nameMusic">Xin đừng nhấc máy</span> - <span class="nameSinger">Bray</span></div>
         <div id="playing-music-bar__left">
             <div class="thumbnail"><img src="./img/img-avtar.jpeg" alt=""></div>
             <div class="information-of-music">
@@ -185,13 +222,15 @@
             </div>
         </div>
         <div id="playing-music-right">
-            <button id="playlist" class="music-bar-btn"><i class="fa-solid fa-microphone"></i></button>
+            <button id="lyricBtn" class="music-bar-btn"><i class="fa-solid fa-microphone"></i></button>
             <button id="volume" class="music-bar-btn"><i class="fa-solid fa-volume-high"></i></button>
-            <input type="range" min="0" max="100" step="1" value="0">
+            <input id="volume-controller" type="range" min="0" max="1" step="0.1" value="0">
         </div>
         <audio src=""></audio>
     </div>
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>

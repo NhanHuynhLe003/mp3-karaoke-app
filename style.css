@@ -11,6 +11,7 @@
     --alpha-bg:hsla(0,0%,100%,0.1);
     --link-text-hover: #c273ed;
     --primary-bg: #333;
+    --alpha-layout-bg: rgb(41,21,71);
 }
 #logo>img{
     width: 50%;
@@ -60,6 +61,7 @@ div#sort-option>i{
 section#content {
     display: flex;
     margin-bottom: 6rem;
+    position: relative;
 }
 #search-bar .search-btn{
     padding-right: 10px;
@@ -68,6 +70,16 @@ section#content {
 }
 .boldChar{
     font-weight: bold !important;
+}
+#lyric-modal{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1200;
+    background-color: #000;
+    visibility: hidden;
 }
 #search-bar{
     background-color: #333333;
@@ -88,6 +100,57 @@ section#content {
     width: 100%;
     border-radius: 20px;
 }
+.row.lyric-modal__container__header-row1 {
+    margin: 1.5rem 0;
+}
+.lyric-modal__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#thumbnail-lyric{
+    width: 95%;
+}
+img#thumbnail-lyric {
+    border-radius: 8px;
+}
+ul#songLyric-container {
+    max-height: 450px;
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+ul#songLyric-container::-webkit-scrollbar{
+    display: none;
+}
+.lyric-list-item{
+    font-weight: 700;
+    padding: 20px 0;
+    font-size: 34px;
+    line-height: 1.2;
+    list-style-type: none;
+}
+#nameLyricSong{
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 5.5rem;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 1000;
+}
+.lyric-modal__container__header-row1__col1 {
+    border-radius: 50px;
+}
+.lyric-modal__container__header-row1__col1 > button{
+    border-radius: 50px;
+    padding: 7px 50px;
+}
+
 aside#left{
     width: 15%;
     background-color: #333333;
@@ -99,7 +162,7 @@ aside#left{
     justify-content: space-between;
     background-color: #000;
     position: fixed;
-    width: 85%;
+    width: 100%;
     z-index: 1000;
 }
 .wrapper-input{
@@ -130,7 +193,7 @@ div#search-result > .search-result__container > li > img{
     padding-right: 4rem;
 }
 aside#right {
-    width: 85%;
+    width: 100%;
 }
 .circle-icon{
     border-radius: 50%;
@@ -200,6 +263,29 @@ button#continue-run-music {
 }
 div#about-singer {
     margin-top: 0.5rem;
+}
+.scale-screen-btn{
+    padding: 0.9rem;
+    background: #333;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.left-lyric-setting{
+    position: relative;
+    left: 38rem;
+}
+.close-lyric-modal-btn{
+    padding: 0.9rem;
+    background: #333;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+.lyric-modal__container__header-row1__col1 > button{
+    opacity: 0.9;
+    background: #333;
+    font-weight: 700;
 }
 .download-music{
     text-align: center;
@@ -383,6 +469,26 @@ div#music-picture {
 .circleToNormalRevert{
     animation: circleToNormalRevert 200ms linear;
 }
+
+.animationShowModalLyricSong{
+    animation: showModalLyric 700ms ease;
+}
+.showLyricSong{
+    visibility: visible;
+}
+.animationCloseModalLyricSong{
+    animation: closeModalLyric 700ms ease;
+}
+.activeLyric{
+    color: #FFED00;
+}
+.overLyric{
+    color: #FFFFFF80;
+}
+.initLyric{
+    color: #fff;;
+}
+
 @keyframes circleSpin{
     from {
         transform: rotate(0deg);
@@ -410,5 +516,23 @@ div#music-picture {
         border-radius: 10px;
     } to{
         border-radius: 50%;
+    }
+}
+
+@keyframes showModalLyric{
+    from{
+        visibility: visible;
+        top: 40rem;
+    } to{
+        top: 0;
+    }
+}
+@keyframes closeModalLyric{
+    from{
+        visibility: visible;
+        top: 0;
+    } to{
+        top: 40rem;
+        visibility: hidden;
     }
 }
