@@ -500,8 +500,8 @@ const songs = [
     Dù sao, tất cả đã qua rồi`,
     timePoint: [
       36, 43, 52, 59, 67, 71, 76, 83, 87, 91, 99, 104, 107, 115, 123, 164, 167,
-      172, 180, 183, 187, 194, 200, 203, 211, 219, 227, 232, 236, 243, 248,
-      252, 262, 268, 271, 279, 288, 298, 301, 305, 314, 317, 322,
+      172, 180, 183, 187, 194, 200, 203, 211, 219, 227, 232, 236, 243, 248, 252,
+      262, 268, 271, 279, 288, 298, 301, 305, 314, 317, 322,
     ],
   },
 ];
@@ -528,10 +528,8 @@ let musicPlayingBar = document.querySelector("#playing-music-bar__left");
 let musicPlayingBarRight = document.querySelector("#playing-music-right");
 
 let musicThumbnailInBar = musicPlayingBar.children[0].children[0];
-let nameSongBar = document.querySelector("#playing-music-bar__left .nameSong ");
-let nameSingerBar = document.querySelector(
-  "#playing-music-bar__left .nameMusician "
-);
+let nameSongBar = document.querySelector(".information-of-music .nameSong ");
+let nameSingerBar = document.querySelector(".information-of-music .nameMusician ");
 const randomBtn = document.querySelector("button#random-btn");
 const iconPlayingBtn = document.querySelector("button.run-music");
 let songContainerParent = document.querySelector("#list-songs-container");
@@ -551,7 +549,10 @@ const songLyricContainer = document.getElementById("songLyric-container");
 const imgLyricThumbnail = document.querySelector("#thumbnail-lyric");
 const volumeControl = document.getElementById("volume-controller");
 const volumeBtn = document.getElementById("volume");
-
+const searchContainerResult = document.querySelector(
+  ".search-result__container"
+);
+let delayBlurTimeOut = undefined;
 const rect = imgLyricThumbnail.getBoundingClientRect(); //lay vi tri hien tai cua loi dang phat
 
 let curPosition = 0; //vi tri bai hat hien tai
@@ -955,8 +956,10 @@ function handleSearchNameSong(nameMusic) {
       listItem.style.cursor = "pointer";
       listItem.addEventListener("click", () => {
         displayNames(nameSong, handleRenderSongNameWhenSearched);
-        //khi bam vao bai hat tren tim
+        //khi bam vao ket qua tren tim kiem
         hideSearchResult();
+        searchInput.value = nameSong; //fill ten bai hat vao o tim kiem
+        clearTimeout(delayBlurTimeOut);
       });
 
       let word = `<span class="boldChar">${nameSong.substr(
@@ -981,8 +984,10 @@ function handleSearchNameSinger(nameMusicianInList) {
       listItem.style.cursor = "pointer";
       listItem.addEventListener("click", () => {
         displayNames(nameSinger, handleRenderSingerNameWhenSearched);
-        //khi bam vao bai hat tren tim
+        //khi bam vao bai hat tren tim kiem
         hideSearchResult();
+        searchInput.value = nameSinger;
+        clearTimeout(delayBlurTimeOut);
       });
 
       let word = `<span class="boldChar">${nameSinger.substr(
@@ -999,16 +1004,46 @@ function handleSearchNameSinger(nameMusicianInList) {
 function handleSearchBar() {
   let name = convertSongToNameMusic();
 
+  if (searchInput.value == "") {
+    songList.map((song, index) => {
+      let listName = document.createElement("li");
+      listName.classList.add("list-items");
+      listName.style.cursor = "pointer";
+      listName.innerHTML = `${song.nameSong}`;
+      listName.onclick = function () {
+        displayNames(song.nameSong, handleRenderSongNameWhenSearched);
+        //khi bam vao bai hat tren tim kiem
+        hideSearchResult();
+        searchInput.value = song.nameSong;
+        clearTimeout(delayBlurTimeOut);
+      };
+      searchResult.children[0].appendChild(listName);
+    });
+  }
+
   searchInput.onfocus = function () {
     showSearchResult();
+  };
+  searchInput.onblur = function () {
+    delayBlurTimeOut = setTimeout(() => {
+      hideSearchResult();
+    }, 150);
   };
 
   searchInput.onkeyup = function (e) {
     removeListItem();
-    if (searchInput.value == "") {
+    /**
+     neu ghi kieu nay thi chi khi kqua = '' moi tim kiem bai hat
+     if (searchInput.value == "") {
       songList = songListTemp;
       main();
     }
+    minh mong muon la ket qua luc nao cung phai search neu phu hop phai render ra lien
+     */
+
+    songList = songListTemp;
+    main();
+
     handleSearchNameSong(name.nameMusic);
     handleSearchNameSinger(name.nameSinger);
   };
@@ -1075,7 +1110,7 @@ function handleTimePoint(curTime, timepoint, idSong) {
       if (preTimePoint > -1) {
         songLyricContainer.childNodes[preTimePoint].classList.add("overLyric");
       }
-    } else if (curTimePoint < curTime - 1 && curClass[1] !== "activeLyric") {
+    } else if (curTimePoint < curTime && curClass[1] !== "activeLyric") {
       songLyricContainer.childNodes[i].classList.remove("initLyric");
       songLyricContainer.childNodes[i].classList.remove("activeLyric");
       songLyricContainer.childNodes[i].classList.add("overLyric");
@@ -1088,7 +1123,6 @@ function handleTimePoint(curTime, timepoint, idSong) {
         songLyricContainer.childNodes[i].classList.remove("overLyric");
         songLyricContainer.childNodes[i].classList.add("initLyric");
       }
-
     }
   });
 }
@@ -1096,6 +1130,7 @@ function handleTimePoint(curTime, timepoint, idSong) {
 function showLyricModal() {
   lyricBtn.onclick = function () {
     nameLyricSongInSongBar.style.visibility = "visible";
+    console.log(nameLyricSongInSongBar);
     musicPlayingBar.style.visibility = "hidden";
     musicPlayingBarRight.style.visibility = "hidden";
     lyricModalBtn.classList.remove("animationCloseModalLyricSong");
